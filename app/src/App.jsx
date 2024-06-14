@@ -7,6 +7,8 @@ import Services from './components/Services';
 import Contacts from './components/Contacts';
 import "./index.css"
 import Signup from './components/Signup';
+import Main from './components/Main';
+import Login from './components/Login';
 function App() {
   return (
     <Router>
@@ -16,7 +18,11 @@ function App() {
         <Route path="/services" element={<Services />} />
         <Route path="/contacts" element={<Contacts />} />
       </Routes>
-      <Signup/>
+      <Routes>
+        <Route path="/main" element={<Main />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/" element={<Login />} />
+      </Routes>
     </Router>
   );
 }

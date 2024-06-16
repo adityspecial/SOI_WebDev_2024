@@ -2,6 +2,20 @@ import React from 'react'
 import { useState } from "react";
 import { Link } from "react-router-dom";
 export default function Login() {
+    const [email,setEmail] = useState();
+    const [password,setPassword] = useState();
+    const navigate = useNavigate()
+    
+    const handleSubmit = (e) =>{
+        e.preventDefault()
+        axios.post('http://localhost:3001/login',{email,password})
+        .then(result => {console.log(result)
+            if(result.data==="Success")
+                navigate('/main')
+        })
+        .catch(err => console.log(err))
+    }
+
   return (
     <div className="h-screen flex items-center justify-center">
     <div className="flex w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800 lg:max-w-4xl">
@@ -59,6 +73,7 @@ export default function Login() {
                         id="LoggingEmailAddress"
                         className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-300"
                         type="email"
+                        onChange={(e)=>setEmail(e.target.value)}
                     />
                 </div>
 
@@ -72,12 +87,13 @@ export default function Login() {
                         id="loggingPassword"
                         className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-300"
                         type="password"
+                        onChange={(e)=>setPassword(e.target.value)}
                     />
                 </div>
 
                 <div className="mt-6">
-                    <button className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-gray-700 focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-50">
-                        Sign In
+                    <button onClick={handleSubmit} className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-gray-700 focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-50">
+                        Log In
                     </button>
                 </div>
 

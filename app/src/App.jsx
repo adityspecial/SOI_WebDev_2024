@@ -8,7 +8,6 @@ import Contacts from './components/Contacts';
 import Signup from './components/Signup';
 import Main from './components/Main';
 import Login from './components/Login';
-import Login from './components/Login';
 import './index.css';
 import Home from "./components/Home"
 
@@ -19,17 +18,15 @@ function App() {
     <Router>
       <Navbar />
       <Routes>
-      <Route path="/" element={<Home/>} />
         <Route path="/about" element={<About />} />
         <Route path="/services" element={<Services />} />
         <Route path="/contacts" element={<Contacts />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/login" element={<Login />} />
       </Routes>
       <Routes>
         <Route path="/main" element={<Main />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<Signup />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/" element={<Login />} />
       </Routes>
     </Router>
   );

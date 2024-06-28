@@ -38,5 +38,5 @@ app.post('/register',(req,res)=>{
 })
 
 app.listen(3001,() =>{
-    console.log("server is runnin")
+    console.log("server is running")
 })

@@ -61,7 +61,7 @@ const Home = () => {
     </div>
     <div className="container mx-auto">
       {/* Library Information Section */}
-      <div className="library-info-section container mx-auto py-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="library-info-section container mx-auto py-8 grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4">
         <div className="card  bg-blue-500 p-4 rounded shadow">
           <h3 className="text-xl font-semibold">My Library</h3>
           <ul className="text-white" >
@@ -163,6 +163,8 @@ const Home = () => {
         {/* Add more cards as needed */}
       </div>
 
+    </div>
+    </div>
       {/* Library Resources Section */}
       <div className="library-resources-section bg-gray-100 py-8">
         <div className="container mx-auto">
@@ -196,8 +198,6 @@ const Home = () => {
         </div>
       </div>
 
-    </div>
-    </div>
     <Footer/>
     </div>
   );

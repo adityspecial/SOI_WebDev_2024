@@ -6,7 +6,7 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const MongoStore = require('connect-mongo');
 const User = require('./models/Users');
-
+const Contact=require('./models/Contacts')
 const app = express();
 app.use(express.json());
 app.use(cors());
@@ -31,11 +31,10 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-<<<<<<< HEAD
 app.listen(3001,() =>{
     console.log("server is running")
 })
-=======
+
 passport.use(new LocalStrategy({ usernameField: 'email' }, async (email, password, done) => {
   try {
     const user = await User.findOne({ email });
@@ -104,8 +103,18 @@ app.get('/main', (req, res) => {
   }
   res.send("Welcome to the main page!");
 });
+app.post('/contacts', async (req, res) => {
+  const { name, email, message } = req.body;
+  const newContact = new Contact({ name, email, message });
 
+  try {
+    await newContact.save();
+    res.status(201).json(newContact);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+});
 app.listen(3001, () => {
   console.log("Server is running on port 3001");
 });
->>>>>>> 758d619f532f6cb2d86837276efe1c0fa8e4d5b8
+

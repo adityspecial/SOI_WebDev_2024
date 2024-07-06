@@ -1,0 +1,38 @@
+/* Navbar.css */
+
+nav ul li.relative:hover > ul {
+    display: block;
+  }
+  
+  nav ul li ul {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #fff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 0.5rem;
+    overflow: hidden;
+  }
+  
+  nav ul li ul li {
+    width: 200px;
+  }
+  
+  nav ul li ul li a {
+    display: block;
+    padding: 0.5rem 1rem;
+    color: #333;
+    text-decoration: none;
+  }
+  
+  nav ul li ul li a:hover {
+    background-color: #f4f4f4;
+  }
+  .dropdown-menu {
+    display: none;
+  }
+  
+  .dropdown-menu.open {
+    display: block;
+  }

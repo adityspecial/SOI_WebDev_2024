@@ -1,153 +1,151 @@
-/* src/components/Homepage.css */
+/* General styles for the card hover effect */
+.card, .resource-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+body{
+  background-image: url("https://www.transparenttextures.com/patterns/always-grey.png");
+}
+.card:hover, .resource-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+}
 
-/* Hero Section */
-.hero-section {
-    background: #f9f9f9;
-    padding: 50px 0;
-    text-align: center;
-    animation: fadeInUp 2s ease-out;
-  }
-  
-  .hero-content {
-    max-width: 800px;
-    margin: 0 auto;
-  }
-  
-  .hero-title {
-    font-size: 3em;
-    margin-bottom: 20px;
-  }
-  
-  .hero-subtitle {
-    font-size: 1.5em;
-    margin-bottom: 30px;
-  }
-  
-  .hero-button {
-    background: #007bff;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 5px;
-    text-decoration: none;
-  }
-  
-  .hero-button:hover {
-    background: #0056b3;
-  }
-  
-  /* Search Bar */
-  .search-bar {
-    background: #e9ecef;
-    padding: 20px 0;
-    animation: fadeInRight 2s ease-out;
-  }
-  
-  .search-input {
-    width: 80%;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-  }
-  
-  /* Animations */
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translate3d(0, 40px, 0);
-    }
-    to {
-      opacity: 1;
-      transform: none;
-    }
-  }
-  
-  @keyframes fadeInRight {
-    from {
-      opacity: 0;
-      transform: translate3d(40px, 0, 0);
-    }
-    to {
-      opacity: 1;
-      transform: none;
-    }
-  }
-  /* Testimonials Section */
-.testimonials {
-    background: #fff;
-    padding: 50px 0;
-    text-align: center;
-    animation: fadeInRight 2s ease-out;
-  }
-  
-  .testimonial-list {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-  
-  .testimonial {
-    background: #f0f0f0;
-    padding: 20px;
-    border-radius: 5px;
-    animation: zoomIn 2s ease-out;
-  }
-  .latest-arrivals {
-    background: #fff;
-    padding: 50px 0;
-    text-align: center;
-    animation: fadeInUp 2s ease-out;
-  }
-  
-  .books {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-  }
-  
-  .book {
-    background: #f0f0f0;
-    padding: 20px;
-    border-radius: 5px;
-    animation: zoomIn 2s ease-out;
-  }
-  
-  .section-title {
-    font-size: 2em;
-    margin-bottom: 30px;
-  }
-  
-  /* Animations */
-  @keyframes zoomIn {
-    from {
-      opacity: 0;
-      transform: scale(0.5);
-    }
-    to {
-      opacity: 1;
-      transform: scale(1);
-    }
-  }
-  
-  /* src/components/Categories.css */
-  
-  /* Categories Section */
-  .categories {
-    background: #f8f9fa;
-    padding: 50px 0;
-    text-align: center;
-    animation: fadeInLeft 2s ease-out;
-  }
-  
-  .category-list {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-  }
-  
-  .category {
-    background: #e0e0e0;
-    padding: 20px;
-    border-radius: 5px;
-    animation: zoomIn 2s ease-out;
-  }
-  
+/* Specific styles for the header section */
+.header-section {
+  background-color: #1e40af; /* Tailwind CSS blue-600 */
+  color: #ffffff;
+  padding: 1rem 0;
+}
+
+.header-section .contact-info p {
+  margin: 0;
+  padding: 0.25rem 0;
+}
+
+.header-section .nav-links a {
+  color: #ffffff;
+  margin: 0 0.5rem;
+  text-decoration: none;
+}
+
+.header-section .nav-links a:hover {
+  text-decoration: underline;
+}
+
+/* Styles for the main image section */
+/* Styles for main image section with search bar */
+.main-image-section {
+  position: relative;
+}
+
+.main-image-section img {
+  width: 100%;
+  height: auto;
+}
+
+.main-image-section .search-bar {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.5rem; /* Adjust as needed */
+}
+
+.main-image-section .search-bar .form-container {
+  background-color: #ffffff;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 640px;
+}
+
+.main-image-section .search-bar form {
+  display: flex;
+}
+
+.main-image-section .search-bar select {
+  background-color: transparent;
+  padding: 0.5rem 1rem;
+  border: 1px solid #e5e7eb; /* Tailwind CSS gray-200 */
+  border-radius: 0.5rem 0 0 0.5rem;
+  outline: none;
+  border-right: 1px solid #e5e7eb; /* Tailwind CSS gray-200 */
+}
+
+.main-image-section .search-bar input[type="text"] {
+  flex: 1;
+  padding: 0.5rem 1rem;
+  border: 1px solid #e5e7eb; /* Tailwind CSS gray-200 */
+  border-left: none;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.main-image-section .search-bar input[type="text"]:focus {
+  border-color: #3b82f6; /* Tailwind CSS blue-500 */
+}
+
+.main-image-section .search-bar button {
+  background-color: #1e40af; /* Tailwind CSS blue-700 */
+  color: #ffffff;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0 0.5rem 0.5rem 0;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.main-image-section .search-bar button:hover {
+  background-color: #1d4ed8; /* Tailwind CSS blue-600 */
+}
+
+
+/* General container styles */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* Styles for library info section */
+.library-info-section {
+  display: grid;
+  gap: 1rem;
+  padding: 2rem 0;
+}
+
+/* Styles for library resources section */
+.library-resources-section {
+  background-color: #f3f4f6; /* Tailwind CSS gray-100 */
+  padding: 2rem 0;
+}
+
+.library-resources-section h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.library-resources-section .grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.library-resources-section .resource-card {
+  background-color: #ffffff;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.library-resources-section .resource-card p {
+  margin: 0.5rem 0;
+}

@@ -1,6 +1,7 @@
-import React from 'react'
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import backgroundImage from '../assets/campus1.jpg';
 export default function Login() {
     const [email,setEmail] = useState();
     const [password,setPassword] = useState();
@@ -15,6 +16,7 @@ export default function Login() {
         })
         .catch(err => console.log(err))
     }
+  };
 
   return (
     <div className="h-screen flex items-center justify-center">
@@ -109,7 +111,46 @@ export default function Login() {
                     <span className="w-1/5 border-b dark:border-gray-600 md:w-1/4"></span>
                 </div>
             </div>
+            <span className="w-5/6 px-4 py-3 font-bold text-center">Sign in with Google</span>
+          </div>
+          <div className="flex items-center justify-between mt-4">
+            <span className="w-1/5 border-b dark:border-gray-600 lg:w-1/4"></span>
+            <a href="#" className="text-xs text-center text-gray-500 uppercase dark:text-gray-400 hover:underline">or login with email</a>
+            <span className="w-1/5 border-b dark:border-gray-400 lg:w-1/4"></span>
+          </div>
+          <div className="mt-4">
+            <label className="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200" htmlFor="LoggingEmailAddress">Email Address</label>
+            <input
+              id="LoggingEmailAddress"
+              className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-300"
+              type="email"
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+          <div className="mt-4">
+            <div className="flex justify-between">
+              <label className="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200" htmlFor="loggingPassword">Password</label>
+              <a href="#" className="text-xs text-gray-500 dark:text-gray-300 hover:underline">Forget Password?</a>
+            </div>
+            <input
+              id="loggingPassword"
+              className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-300"
+              type="password"
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+          <div className="mt-6">
+            <button onClick={handleSubmit} className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-gray-700 focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-50">
+              Log In
+            </button>
+          </div>
+          <div className="flex items-center justify-between mt-4">
+            <span className="w-1/5 border-b dark:border-gray-600 md:w-1/4"></span>
+            <Link to="/signup" className="text-xs text-gray-500 uppercase dark:text-gray-400 hover:underline">or sign up</Link>
+            <span className="w-1/5 border-b dark:border-gray-600 md:w-1/4"></span>
+          </div>
         </div>
-        </div>
-  )
+      </div>
+    </div>
+  );
 }

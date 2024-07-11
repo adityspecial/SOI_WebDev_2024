@@ -16,6 +16,9 @@ import Upload from "../admin/Upload";
 import Manage from "../admin/Manage";
 import EditBooks from "../admin/EditBooks";
 import SingleBook from "../components/SingleBook";
+import Team from "../components/Team";
+import UpdateUserBooks from "../admin/UpdateUserBooks";
+import AllUsers from "../admin/AllUsers";
 const router = createBrowserRouter([
     {
       path: "/",
@@ -24,6 +27,10 @@ const router = createBrowserRouter([
         {
             path: '/',
             element: <Home/>
+        },
+        {
+            path: '/team',
+            element: <Team/>
         },
         {
             path: '/about',
@@ -76,6 +83,19 @@ const router = createBrowserRouter([
                 path: '/admin/dashboard/edit/:id',
                 element: <EditBooks/>,
                 loader: ({params}) => fetch(`http://localhost:3001/all-books/${params.id}`)
+            },
+            {
+                path: '/admin/dashboard/issueBook',
+                element: <UpdateUserBooks/>
+            },
+            {
+                path: '/admin/dashboard/users',
+                element: <AllUsers/>
+            },
+            {
+                path: '/admin/dashboard/users/:id',
+                element: <UpdateUserBooks/>,
+                loader: ({params}) => fetch(`http://localhost:3001/all-users/${params.id}`)
             }
         ]
     }

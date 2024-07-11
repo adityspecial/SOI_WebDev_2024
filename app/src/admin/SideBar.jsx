@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 import { Sidebar } from "flowbite-react";
 import { BiBuoy } from "react-icons/bi";
 import { HiArrowSmRight, HiChartPie, HiInbox, HiShoppingBag, HiTable, HiUser, HiViewBoards } from "react-icons/hi";
@@ -11,30 +12,30 @@ const SideBar = () => {
       </Sidebar.Logo>
       <Sidebar.Items>
         <Sidebar.ItemGroup>
-          <Sidebar.Item href="/admin/dashboard" icon={HiChartPie}>
+          <Sidebar.Item as={Link} to="/admin/dashboard" icon={HiChartPie}>
             Dashboard
           </Sidebar.Item>
-          <Sidebar.Item href="/admin/dashboard/upload" icon={HiViewBoards}>
+          <Sidebar.Item as={Link} to="/admin/dashboard/upload" icon={HiViewBoards}>
             Upload Books
           </Sidebar.Item>
-          <Sidebar.Item href="/admin/dashboard/manage" icon={HiInbox}>
+          <Sidebar.Item as={Link} to="/admin/dashboard/manage" icon={HiInbox}>
             Manage Books
           </Sidebar.Item>
-          <Sidebar.Item href="/admin/dashboard" icon={HiUser}>
+          <Sidebar.Item as={Link} to="/admin/dashboard/users" icon={HiUser}>
             Users
           </Sidebar.Item>
-          <Sidebar.Item href="/admin/dashboard" icon={HiShoppingBag}>
+          <Sidebar.Item as={Link} to="/admin/dashboard/" icon={HiShoppingBag}>
             Products
           </Sidebar.Item>
         </Sidebar.ItemGroup>
         <Sidebar.ItemGroup>
-        <Sidebar.Item href="#" icon={HiArrowSmRight}>
+          <Sidebar.Item as={Link} to="#" icon={HiArrowSmRight}>
             Sign In
           </Sidebar.Item>
-          <Sidebar.Item href="#" icon={HiTable}>
+          <Sidebar.Item as={Link} to="#" icon={HiTable}>
             Log Out
           </Sidebar.Item>
-          <Sidebar.Item href="#" icon={BiBuoy}>
+          <Sidebar.Item as={Link} to="#" icon={BiBuoy}>
             Help
           </Sidebar.Item>
         </Sidebar.ItemGroup>

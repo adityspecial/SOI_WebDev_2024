@@ -1,13 +1,15 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const axios = require('axios');
 const cors = require('cors');
 const session = require('express-session');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const MongoStore = require('connect-mongo');
+const Contact=require('./models/Contacts')
 const User = require('./models/Users'); // Ensure correct path to your User model
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
-
+const BookRequest=require("./models/BookRequest")
 const app = express();
 app.use(express.json());
 app.use(cors());
@@ -24,6 +26,7 @@ mongoose.connect(uri, {
   console.error("Error connecting to MongoDB Atlas with Mongoose:", err.message);
 });
 
+
 app.use(session({
   secret: 'secret',
   resave: false,
@@ -36,9 +39,29 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Passport Local Strategy
+
+app.get('/all-users/:email', async (req, res) => {
+  try {
+    const user = await User.findOne({ email: req.params.email });
+    //console.log(`Title: ${user.books[1].title}`)
+    //user.books.forEach(book => {
+   //   console.log(`Title: ${book.title}`);
+    //});
+
+    if (!user) {
+      return res.status(404).send('User not found');
+    }
+    res.json(user);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+});
+
+// Passport Local Strategy
 passport.use(new LocalStrategy({ usernameField: 'email' }, async (email, password, done) => {
   try {
     const user = await User.findOne({ email });
+    
     if (!user) {
       return done(null, false, { message: 'User not found' });
     }
@@ -62,9 +85,21 @@ passport.deserializeUser((id, done) => {
   });
 });
 
+app.post('/login', (req, res, next) => {
+  passport.authenticate('local', (err, user, info) => {
+    if (err) return next(err);
+    if (!user) return res.status(400).send(info.message);
+
+    req.logIn(user, (err) => {
+      if (err) return next(err);
+      return res.json(user); // Send user data
+    });
+  })(req, res, next);
+});
+
 // Registration Endpoint
 app.post('/register', async (req, res) => {
-  const { email, name, rollNo, password, books } = req.body;
+  const { email, name, rollNo, password,books } = req.body;
 
   // Validate email format
   if (!email.endsWith("@iitdh.ac.in")) {
@@ -73,12 +108,12 @@ app.post('/register', async (req, res) => {
 
   try {
     // Create new user instance
-    const user = new User({ email, name, rollNo, password, books });
+    const user = new User({ email, name, rollNo, password,books });
 
     // Save user to MongoDB
     await user.save();
-
     res.send("Registration successful!");
+    res.redirect('/login');
   } catch (err) {
     console.error("Registration error:", err);
     res.status(500).send(err.message);
@@ -250,7 +285,7 @@ async function runMongoClient() {
 
 runMongoClient().catch(console.dir);
 
-app.get('/main', (req, res) => {
+app.get('/user', (req, res) => {
   if (!req.isAuthenticated()) {
     return res.status(401).send("You need to log in first");
   }
@@ -293,9 +328,123 @@ app.patch('/users/:id/books', async (req, res) => {
       res.status(500).send("Error updating user books");
     }
   });
+
+  app.patch('/update-user', async (req, res) => {
+    const { email, name, rollNo, about, photo } = req.body;
+  console.log(req.body)
+    try {
+      const updatedUser = await User.findOneAndUpdate(
+        { email }, // Find the user by email
+        { name, rollNo, about, photo }, // Update these fields
+        { new: true } // Return the updated document
+      );
+  
+      if (!updatedUser) {
+        return res.status(404).send("User not found");
+      }
+  
+      res.json(updatedUser);
+    } catch (err) {
+      console.error("Error updating user:", err);
+      res.status(500).send("An error occurred while updating the user profile");
+    }
+  });
+
+
+  app.patch('/change-password', async (req, res) => {
+    const { email, newPassword } = req.body;
+  
+    if (newPassword.length < 8 || newPassword.length > 15) {
+      return res.status(400).json({ message: 'Password must be between 8 and 15 characters.' });
+    }
+  
+    try {
+      const hashedPassword = await bcrypt.hash(newPassword, 10);
+      const user = await User.findOneAndUpdate(
+        { email },
+        { password: hashedPassword },
+        { new: true }
+      );
+  
+      if (!user) {
+        return res.status(404).json({ message: 'User not found' });
+      }
+  
+      res.json({ message: 'Password changed successfully' });
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  });
+
+  app.get('/bookRequests', async (req, res) => {
+    try {
+      const bookRequests = await BookRequest.find();
+      res.json(bookRequests);
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  });
+  
+  // POST a new book request
+  app.post('/bookRequests', async (req, res) => {
+    const { bookName, url, bookDesc, personName, email, likes, addedOn } = req.body;
+  
+    const newBookRequest = new BookRequest({
+      bookName,
+      url,
+      bookDesc,
+      personName,
+      email,
+      likes,
+      addedOn
+    });
+  
+    try {
+      const savedBookRequest = await newBookRequest.save();
+      res.status(201).json(savedBookRequest);
+    } catch (error) {
+      res.status(400).json({ message: error.message });
+    }
+  });
+  app.get('/reminders', async (req, res) => {
+    try {
+      const bookRequests = await BookRequest.find();
+      const reminders = bookRequests.map(bookRequest => ({
+        email: bookRequest.email,
+        issueDate: bookRequest.issueDate,
+        personName: bookRequest.personName,
+        bookName: bookRequest.bookName,
+        bookDesc: bookRequest.bookDesc,
+        url: bookRequest.url,
+        addedOn: bookRequest.addedOn
+      }));
+      res.json(reminders);
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  });
+  
+  app.patch('/bookRequests/:id/like', async (req, res) => {
+    try {
+      const bookRequest = await BookRequest.findById(req.params.id);
+      if (!bookRequest) {
+        return res.status(404).send('Book request not found');
+      }
+      bookRequest.likes += 1;
+      await bookRequest.save();
+      res.status(200).send(bookRequest);
+    } catch (error) {
+      res.status(500).send(error);
+    }
+  });
+
+
+
+
   
   
 
 app.listen(3001, () => {
   console.log("Server is running on port 3001");
 });
+  

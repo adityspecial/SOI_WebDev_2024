@@ -16,9 +16,10 @@ import Upload from "../admin/Upload";
 import Manage from "../admin/Manage";
 import EditBooks from "../admin/EditBooks";
 import SingleBook from "../components/SingleBook";
-import Team from "../components/Team";
-import UpdateUserBooks from "../admin/UpdateUserBooks";
+import UserPanel from "../user/UserPanel"
+import Reminder from "../admin/Reminder";
 import AllUsers from "../admin/AllUsers";
+import UpdateUserBooks from "../admin/UpdateUserBooks";
 const router = createBrowserRouter([
     {
       path: "/",
@@ -27,10 +28,6 @@ const router = createBrowserRouter([
         {
             path: '/',
             element: <Home/>
-        },
-        {
-            path: '/team',
-            element: <Team/>
         },
         {
             path: '/about',
@@ -60,7 +57,8 @@ const router = createBrowserRouter([
             path: '/books/:id',
             element: <SingleBook/>,
             loader: ({params}) => fetch(`http://localhost:3001/all-books/${params.id}`)
-        }
+        },
+       
       ]
     },
     {
@@ -80,17 +78,17 @@ const router = createBrowserRouter([
                 element: <Manage/>
             },
             {
-                path: '/admin/dashboard/edit/:id',
-                element: <EditBooks/>,
-                loader: ({params}) => fetch(`http://localhost:3001/all-books/${params.id}`)
-            },
-            {
-                path: '/admin/dashboard/issueBook',
-                element: <UpdateUserBooks/>
+                path: '/admin/dashboard/reminder',
+                element: <Reminder/>
             },
             {
                 path: '/admin/dashboard/users',
                 element: <AllUsers/>
+            },
+            {
+                path: '/admin/dashboard/edit/:id',
+                element: <EditBooks/>,
+                loader: ({params}) => fetch(`http://localhost:3001/all-books/${params.id}`)
             },
             {
                 path: '/admin/dashboard/users/:id',
@@ -98,7 +96,14 @@ const router = createBrowserRouter([
                 loader: ({params}) => fetch(`http://localhost:3001/all-users/${params.id}`)
             }
         ]
+    },
+    {
+       path: "/user",
+        element: <UserPanel/>
     }
+           
+    
+    
 ]);
 
 export default router;

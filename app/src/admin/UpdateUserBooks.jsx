@@ -9,7 +9,7 @@ const UpdateUserBooks = () => {
   const [books, setBooks] = useState([{ title: '', issueDate: '', returnDate: '' }]);
 
   useEffect(() => {
-    import('bootstrap/dist/css/bootstrap.min.css');
+    
   }, []);
 
   useEffect(() => {
@@ -38,6 +38,7 @@ const UpdateUserBooks = () => {
     axios.patch(`http://localhost:3001/users/${id}/books`, { books })
       .then(response => {
         alert("Books updated successfully");
+        navigate('/admin/dashboard/manage'); // Navigate after alert
       })
       .catch(error => console.error("Error updating books:", error));
   };
@@ -92,9 +93,8 @@ const UpdateUserBooks = () => {
           </tbody>
         </table>
         <button type="button" className="btn btn-secondary" onClick={handleAddBook}>Add Book</button>
-        <Link to={'/admin/dashboard/manage'}>
         <button type="submit" className="btn btn-primary">Update Books</button>
-        </Link>
+        <Link to={'/admin/dashboard/manage'} className="btn btn-link">Back to Manage</Link>
       </form>
     </div>
   );

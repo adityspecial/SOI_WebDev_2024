@@ -10,7 +10,9 @@ const UserSchema = new mongoose.Schema({
     title: String,
     issueDate: Date,
     returnDate: Date,
-  }]
+  }], 
+  about: { type: String }, // Add about field
+  photo: { type: String } 
 });
 
 UserSchema.pre('save', async function(next) {

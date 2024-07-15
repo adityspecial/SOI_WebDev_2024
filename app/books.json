@@ -1,0 +1,13 @@
+[
+    { "title": "Book1", "author": "Author1", "isBorrowed": false, "borrowedBy": null },
+    { "title": "Book2", "author": "Author2", "isBorrowed": false, "borrowedBy": null },
+    { "title": "Book3", "author": "Author3", "isBorrowed": false, "borrowedBy": null },
+    { "title": "Book4", "author": "Author4", "isBorrowed": false, "borrowedBy": null },
+    { "title": "Book5", "author": "Author5", "isBorrowed": false, "borrowedBy": null },
+    { "title": "Book6", "author": "Author6", "isBorrowed": false, "borrowedBy": null },
+    { "title": "Book7", "author": "Author7", "isBorrowed": false, "borrowedBy": null },
+    { "title": "Book8", "author": "Author8", "isBorrowed": false, "borrowedBy": null },
+    { "title": "Book9", "author": "Author9", "isBorrowed": false, "borrowedBy": null },
+    { "title": "Book10", "author": "Author10", "isBorrowed": false, "borrowedBy": null }
+  ]
+  

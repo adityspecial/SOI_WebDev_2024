@@ -7,10 +7,10 @@ const Banner = () => {
       <div className='flex flex-col md:flex-row justify-between items-center gap-12 py-40 w-full'>
         <div className='md:w-1/2 space-y-8'>
           <h2 className='text-5xl font-bold leading-snug text-black'>
-            Welcome to <span className='text-blue-700'>IIT dholakpur LMS</span>
+            Welcome to <span className='text-blue-700'>IIT Dholakpur LMS</span>
           </h2>
           <p className="md:w-full font-semibold">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vel esse sit error quia cupiditate, aspernatur eos est numquam rerum, ex quidem? Quam deleniti, ea maxime nihil voluptatem dignissimos corporis! Rem!
+            The Indian Institute of Technology Dholakpur (IIT Dholakpur) is a premier institution known for its excellence in education, research, and innovation. Our Library Management System (LMS) is designed to provide seamless access to our extensive collection of books, journals, and digital resources, supporting the academic and research needs of our students and faculty.
           </p>
         </div>
         <div className='md:w-1/2'>

@@ -1,23 +1,41 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { DropdownButton, Dropdown, Button, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { FaPlus, FaMinus } from 'react-icons/fa';
+import {
+  Box,
+  Button,
+  Checkbox,
+  Container,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  TextField,
+  Typography,
+  IconButton,
+  Paper
+} from '@mui/material';
 
 const Manage = () => {
   const [books, setBooks] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedBooks, setSelectedBooks] = useState([]);
-  const [selectedDepartment, setSelectedDepartment] = useState('');
+  const [selectedDepartment, setSelectedDepartment] = useState('All');
 
   useEffect(() => {
-    // Dynamically import Bootstrap CSS
-    import('bootstrap/dist/css/bootstrap.min.css');
-
-    // Fetch books from the backend
     axios.get('http://localhost:3001/all-books')
-      .then(response => setBooks(response.data))
-      .catch(error => console.error(error));
+      .then(response => {
+        console.log('Fetched Books:', response.data);
+        setBooks(response.data);
+      })
+      .catch(error => console.error('Error fetching books:', error));
   }, []);
 
   const handleDelete = (id) => {
@@ -26,15 +44,15 @@ const Manage = () => {
     }).then(res => res.json()).then(data => {
       alert("Book deleted successfully");
       setBooks(books.filter(book => book._id !== id));
-    }).catch(error => console.error(error));
+    }).catch(error => console.error('Error deleting book:', error));
   };
 
   const handleSearch = (event) => {
     setSearchTerm(event.target.value);
   };
 
-  const handleDepartmentChange = (department) => {
-    setSelectedDepartment(department === selectedDepartment ? '' : department);
+  const handleDepartmentChange = (event) => {
+    setSelectedDepartment(event.target.value);
   };
 
   const handleIncrement = (id) => {
@@ -44,7 +62,7 @@ const Manage = () => {
           book._id === id ? { ...book, count: book.count + 1 } : book
         ));
       })
-      .catch(error => console.error(error));
+      .catch(error => console.error('Error incrementing count:', error));
   };
 
   const handleDecrement = (id) => {
@@ -54,57 +72,64 @@ const Manage = () => {
           book._id === id ? { ...book, count: book.count - 1 } : book
         ));
       })
-      .catch(error => console.error(error));
+      .catch(error => console.error('Error decrementing count:', error));
   };
 
-  // Extract unique departments from books data
   const departments = ['All', ...new Set(books.map(book => book.department))];
 
-  // Filter books based on search term and selected department
   const filteredBooks = books.filter(book =>
     book.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
-    (selectedDepartment === '' || book.department === selectedDepartment)
+    (selectedDepartment === 'All' || book.department === selectedDepartment)
   );
 
   return (
-    <div className="container mt-5">
-      <div className="mb-3 flex space-x-3 items-center">
-        <input
-          type="text"
-          className="form-control w-70"
-          placeholder="Search by title..."
+    <Container maxWidth="lg" sx={{ mt: 5 }}>
+      <Box sx={{ mb: 3, display: 'flex', alignItems: 'center', gap: 2 }}>
+        <TextField
+          label="Search by title..."
+          variant="outlined"
+          fullWidth
           value={searchTerm}
           onChange={handleSearch}
         />
-        <DropdownButton id="department-dropdown" title={`Department: ${selectedDepartment || 'All'}`}>
-          {departments.map((department, index) => (
-            <Dropdown.Item key={index} onClick={() => handleDepartmentChange(department)}>
-              {department}
-            </Dropdown.Item>
-          ))}
-        </DropdownButton>
-        <Button type="button" className="btn btn-danger ml-auto">
+        <FormControl variant="outlined" fullWidth>
+          <InputLabel>Department</InputLabel>
+          <Select
+            value={selectedDepartment}
+            onChange={handleDepartmentChange}
+            label="Department"
+          >
+            {departments.map((department, index) => (
+              <MenuItem key={index} value={department}>
+                {department}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+        <Button
+          variant="contained"
+          color="error"
+          onClick={() => selectedBooks.forEach(id => handleDelete(id))}
+        >
           Delete Selected
         </Button>
-      </div>
-      <div className="table-responsive">
-        <table className="table table-bordered">
-          <thead className="thead-dark">
-            <tr>
-              <th>Select</th>
-              <th>Title</th>
-              <th>Department</th>
-              <th>Count</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
+      </Box>
+      <TableContainer component={Paper}>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>Select</TableCell>
+              <TableCell>Title</TableCell>
+              <TableCell>Department</TableCell>
+              <TableCell>Count</TableCell>
+              <TableCell>Actions</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
             {filteredBooks.map(book => (
-              <tr key={book._id}>
-                <td>
-                  <Form.Check
-                    type="checkbox"
-                    id={`checkbox-${book._id}`}
+              <TableRow key={book._id}>
+                <TableCell>
+                  <Checkbox
                     checked={selectedBooks.includes(book._id)}
                     onChange={() => setSelectedBooks(prevSelected => {
                       if (prevSelected.includes(book._id)) {
@@ -114,31 +139,35 @@ const Manage = () => {
                       }
                     })}
                   />
-                </td>
-                <td>{book.title}</td>
-                <td>{book.department}</td>
-                <td>
-                  {book.count}
-                  <Button variant="link" onClick={() => handleIncrement(book._id)}>
-                    <FaPlus />
-                  </Button>
-                  <Button variant="link" onClick={() => handleDecrement(book._id)}>
-                    <FaMinus />
-                  </Button>
-                </td>
-                <td>
-                  <Link to={`/admin/dashboard/edit/${book._id}`}>
-                    <Button variant="primary" className="mr-2">Edit</Button>
-                  </Link>
-                  <Button variant="danger" onClick={() => handleDelete(book._id)}>Delete</Button>
-                </td>
-              </tr>
+                </TableCell>
+                <TableCell>{book.title}</TableCell>
+                <TableCell>{book.department}</TableCell>
+                <TableCell>
+                  <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                    {book.count}
+                    <IconButton onClick={() => handleIncrement(book._id)} size="small" color="primary">
+                      <FaPlus />
+                    </IconButton>
+                    <IconButton onClick={() => handleDecrement(book._id)} size="small" color="secondary">
+                      <FaMinus />
+                    </IconButton>
+                  </Box>
+                </TableCell>
+                <TableCell>
+                  <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                    <Link to={`/admin/dashboard/edit/${book._id}`}>
+                      <Button variant="contained" color="primary" sx={{ mr: 1 }}>Edit</Button>
+                    </Link>
+                    <Button variant="contained" color="error" onClick={() => handleDelete(book._id)}>Delete</Button>
+                  </Box>
+                </TableCell>
+              </TableRow>
             ))}
-          </tbody>
-        </table>
-      </div>
-      <Button type="submit" className="btn btn-primary btn-block mt-3">Submit</Button>
-    </div>
+          </TableBody>
+        </Table>
+      </TableContainer>
+      <Button variant="contained" color="primary" fullWidth sx={{ mt: 3 }}>Submit</Button>
+    </Container>
   );
 };
 

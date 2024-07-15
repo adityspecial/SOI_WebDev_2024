@@ -14,7 +14,7 @@ const UpdateUserBooks = () => {
 
   useEffect(() => {
     // Fetch user details
-    axios.get(`http://localhost:3001/users/${id}`)
+    axios.get(`https://soi-web-dev-2024.vercel.app//users/${id}`)
       .then(response => {
         setUser(response.data);
         setBooks(response.data.books.length ? response.data.books : [{ title: '', issueDate: '', returnDate: '' }]);
@@ -35,7 +35,7 @@ const UpdateUserBooks = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    axios.patch(`http://localhost:3001/users/${id}/books`, { books })
+    axios.patch(`https://soi-web-dev-2024.vercel.app//users/${id}/books`, { books })
       .then(response => {
         alert("Books updated successfully");
         navigate('/admin/dashboard/manage'); // Navigate after alert

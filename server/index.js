@@ -21,7 +21,7 @@ app.use(cors(
 ));
 
 // Connect to MongoDB Atlas
-const uri = "mongodb+srv://lib-books:bCdK2KWWQc20FSHH@lib-mgmt-cluster.lp5sak8.mongodb.net/";
+const uri = "mongodb+srv://lib-books:bCdK2KWWQc20FSHH@lib-mgmt-cluster.lp5sak8.mongodb.net/?retryWrites=true&w=majority&appName=lib-mgmt-cluster";
 mongoose.connect(uri, {
   dbName: 'UserManagement', // Specify the database name
   useNewUrlParser: true,

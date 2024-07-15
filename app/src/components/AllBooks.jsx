@@ -57,9 +57,7 @@ const AllBooks = () => {
                                 {book.description}
                             </p>
                         </div>
-                        <div className="mt-auto pt-4">
-                            <button className='bg-blue-500 font-semibold text-white py-2 rounded w-full'>Issue</button>
-                        </div>
+                        
                     </Card>
                 ))}
             </div>

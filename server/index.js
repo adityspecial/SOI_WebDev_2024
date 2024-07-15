@@ -12,7 +12,13 @@ const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const BookRequest=require("./models/BookRequest")
 const app = express();
 app.use(express.json());
-app.use(cors());
+app.use(cors(
+  {
+    origin: ["https://deploy-mern-1whq.vercel.app"],
+    methods: ["POST","GET"],
+    credentials: true
+  }
+));
 
 // Connect to MongoDB Atlas
 const uri = "mongodb+srv://lib-books:bCdK2KWWQc20FSHH@lib-mgmt-cluster.lp5sak8.mongodb.net/";

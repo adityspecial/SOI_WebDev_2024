@@ -67,6 +67,7 @@ const [isDarkMode, setIsDarkMode] = useState(false);
                   <div className="py-1">
                     <Link to="/login" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600">Dashboard</Link>
                     <Link to="/books" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600">Book Collections</Link>
+                    <Link to="/admin/dashboard" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600">Admin Dashboard</Link>
                   </div>
                 </div>
               )}

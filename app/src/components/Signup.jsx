@@ -14,7 +14,7 @@ export default function Signup() {
         e.preventDefault()
         axios.post('http://localhost:3001/register',{name,email,password,rollNo})
         .then(result => {console.log(result)
-            navigate('/')
+            navigate('/login')
         })
         .catch(err => console.log(err))
     }

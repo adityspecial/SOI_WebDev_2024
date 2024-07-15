@@ -53,13 +53,7 @@ const SideBar = () => {
       </List>
       <Divider />
       <List>
-        <ListItem button component={Link} to="#">
-          <ListItemIcon>
-            <SignInIcon className="text-black" />
-          </ListItemIcon>
-          <ListItemText primary="Sign In" />
-        </ListItem>
-        <ListItem button component={Link} to="#">
+        <ListItem button component={Link} to="/">
           <ListItemIcon>
             <LogOutIcon className="text-black" />
           </ListItemIcon>

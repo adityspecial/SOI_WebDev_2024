@@ -29,7 +29,7 @@ const AllBooks = () => {
 
     return (
         <div className="mt-28 px-4 lg:px-24">
-            <h2 className="text-5xl font-bold text-center">iit dholakpur collections</h2>
+            <h2 className="text-5xl font-bold text-center">iit dharwad collections</h2>
             <div className="flex flex-wrap justify-center gap-4 my-4 w-full">
                 {departments.map((department, index) => (
                     <button

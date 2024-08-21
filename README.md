@@ -69,13 +69,13 @@ To contribute to this project, please follow these steps:
 
 If you have any questions or suggestions about the project, feel free to contact either of us:
 
-- Name (Team Lead): Samartha Tripathi
+- Name (Team Lead): Samartha Tripathi(Frontend)
 - Email: cs23bt019@iitdh.ac.in
-- Name: Aditya Kumar
+- Name: Aditya Kumar(Full Stack)
 - Email: me23bt033@iitdh.ac.in
-- Name: Harsh Chauhan
+- Name: Harsh Chauhan(Full Stack)
 - Email: ep23bt012@iitdh.ac.in
-- Name: Vidit Parikh
+- Name: Vidit Parikh(Content)
 - Email: mc23bt010@iitdh.ac.in
 
 ## License
